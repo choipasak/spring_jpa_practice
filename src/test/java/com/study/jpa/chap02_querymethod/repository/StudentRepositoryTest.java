@@ -108,8 +108,59 @@ class StudentRepositoryTest {
         System.out.println("\n\n\n");
         System.out.println("student = " + student);
         System.out.println("\n\n\n");
-        
-        
+    }
+
+    @Test
+    @DisplayName("testFindCityWithJPQL")
+    void testFindCityWithJPQL() {
+        //given
+        String city = "서울시";
+        //when
+        List<Student> list = studentRepository.getByCityWithJPQL(city);
+
+        //then
+        assertEquals("춘식이", list.get(0).getName());
+        System.out.println("list = " + list);
+
+        // 결과
+        // list = [Student(id=402880858beb827d018beb8287660000, name=춘식이, city=서울시, major=수학과)]
+
+    }
+
+    @Test
+    @DisplayName("testSearchNameWithJPQL")
+    void testSearchNameWithJPQL() {
+        //given
+        String name = "이";
+        //when
+        List<Student> list = studentRepository.searchByNameWithJPQL(name);
+
+        //then
+        assertEquals(3, list.size());
+        System.out.println("\n\n\n");
+        list.forEach(System.out::println);
+        System.out.println("\n\n\n");
+
+        // 결과
+        //  Student(id=402880858beb899d018beb89a89f0000, name=춘식이, city=서울시, major=수학과)
+        //  Student(id=402880858beb899d018beb89a8ce0001, name=언년이, city=부산시, major=수학교육과)
+        //  Student(id=402880858beb899d018beb89a8cf0002, name=대길이, city=한양 도성, major=체육과)
+
+    }
+
+    @Test
+    @DisplayName("JPQL로 삭제하기")
+    void testDeleteByJPQL() {
+        //given
+        String name = "대길이";
+        //when
+        studentRepository.deleteByNameWithJQPL(name); // 대길이 삭제
+        //then
+        List<Student> students = studentRepository.findByName(name); // 대길이 삭제 후 찾기
+
+        // 대길이를 지우고 다시 대길이를 찾아달라고 했으니 list의 size가 0이 되었을 것이다.
+        assertEquals(0, students.size());
+
     }
 
 
