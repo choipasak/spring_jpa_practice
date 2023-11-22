@@ -50,8 +50,8 @@ class DepartmentRepositoryTest {
         이유: 무한 순환 참조가 이뤄지고 있어서 에러가 발생함 -> 서로가 서로를 계속 부르고 있다는 말임
         해결: toString()에서 Department를 빼달라고 해주면 된다.
             jpa 연관관계 매핑에서 연관관계 데이터는 toString에서 제외해야 합니다.
-            @ToString(exclude = {"department"}) -> Employee.java 파일
-            @ToString(exclude = {"Employee"}) -> Department.java 파일
+            @ToString(exclude = ({"department"}) -> Employee.java 파일
+            @ToString(exclude = ({"Employee"}) -> Department.java 파일
         ! 여러개 쓸거면 중괄호 작성, 여기서는 그냥 사용 해 줬음
         */
 
@@ -136,7 +136,7 @@ class DepartmentRepositoryTest {
     @Test
     @DisplayName("양방향 연관 관계에서 연관 데이터의 수정")
     void testChangeDept() {
-        // 3번 사원의 부서를 2번 부서에서 1번 부서로 변경해야 한다.
+        // 3번 사원 부서: 2번 부서 -> 1번 부서로 변경
 
         //given
         //when
@@ -146,7 +146,7 @@ class DepartmentRepositoryTest {
         Department newDept = departmentRepository.findById(1L)
                 .orElseThrow();
 
-        // 2번(권장) -> 사원의 부서 정보를 업데이트 하면서, 부서에 대한 저오도 같이 업데이트.
+        // 2번(권장) -> 사원의 부서 정보를 업데이트 하면서, 부서에 대한 정보도 같이 업데이트. / 정보를 그냥 밀어넣는 방법
         foundEmp.setDepartment(newDept);
         newDept.getEmployees().add(foundEmp); // 양방향으로 서로에게 정보를 추가해 준 것이다.
         // 새로운 부서로 수정(Update) 완.
@@ -157,7 +157,7 @@ class DepartmentRepositoryTest {
 
 
         /*
-        1번 -> 변경 감지(더티 체크) 후 변경된 내용을 DB에 즉시 반영하는 역할.
+        1번 -> 변경 감지(더티 체크) 후 변경된 내용을 DB에 즉시 반영하는 역할. 이게 강제하는 방법
         entityManager.flush(); // DB로 밀어내기
         entityManager.close(); // 영속성 컨텍스트 비우기 (비우지 않으면 컨텍스트 내의 정보를 참조하려 함: 효율적으로 로직을 돌리려는 특징 때문)
         */
@@ -186,7 +186,7 @@ class DepartmentRepositoryTest {
     }
     
     @Test
-    @DisplayName("N+1 문제 발생 예시")
+    @DisplayName("N+1 문제 발생 예시 - 해결 X")
     void testNPlus1Ex() {
         //given
         List<Department> departments = departmentRepository.findAll();
@@ -202,7 +202,7 @@ class DepartmentRepositoryTest {
     }
 
     @Test
-    @DisplayName("N+1 문제 발생 예시")
+    @DisplayName("N+1 문제 발생 예시 - SOL")
     void testNPlus1Solution() {
         //given
         List<Department> departments = departmentRepository.findAllIncludesEmployees();

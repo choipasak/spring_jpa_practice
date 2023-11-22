@@ -15,7 +15,7 @@ import static com.study.jpa.chap01_basic.entity.Product.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional // 테스트 완료 후 롤백. 원상 복수 시켜라! 라는 아노테이션
+@Transactional // 테스트 완료 후 롤백. 원상 복구 시켜라! 라는 아노테이션
 @Rollback(false) // 테스트 끝난 다음 롤백 시킨다(true) / 안시킨다(false)
 class ProductRepositoryTest {
 

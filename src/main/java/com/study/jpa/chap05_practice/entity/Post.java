@@ -28,6 +28,9 @@ public class Post{
     @Column(nullable = false)
     private String writer; // 작성자
 
+    @Column(nullable = false)
+    private String title; // 글 제목 (SNS같은 게시판은 title이 필요X)
+    
     private String content; // 글 내용
 
     @CreationTimestamp

@@ -71,7 +71,8 @@ class StudentPageRepositoryTest {
         */
 
         // 상속받는 부모가 pageable을 가지고 있어서 당연히 자식도 사용 가능함.
-        /*Sort.by()
+        /*
+        - Sort.by()
         정렬 기준은 엔터티 클래스의 필드명으로 작성 해 줘야 한다. -> Sort.by("name")
         내림차로 정렬하고 싶다면 뒤에 Sort.by("name").descending() 해주면 된다
         */
