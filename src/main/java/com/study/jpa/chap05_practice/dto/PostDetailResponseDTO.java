@@ -32,7 +32,8 @@ public class PostDetailResponseDTO {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.regDate = post.getCreateDate();
-        this.hashTags = post.getHashTags().stream()
+        this.hashTags = post.getHashTags() // 여기서 NPE가 터진것이였음 -> 빌더 아노테이션의 기본값을 설정하지 않아서 발생
+                .stream()
                 .map(HashTag::getTagName)
                 .collect(Collectors.toList());
         /*

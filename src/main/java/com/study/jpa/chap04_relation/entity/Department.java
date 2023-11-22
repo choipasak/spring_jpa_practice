@@ -33,6 +33,7 @@ public class Department {
     상대방 엔터티 클래스에서 작성되어 있는 이 클래스의 필드명 말하는 것임
     */
     @OneToMany(mappedBy = "department") // @OneToMany 의 이유: 부서는 하나고 사원은 여러명이니까
+    @Builder.Default
     private List<Employee> employees = new ArrayList<>();
     // 이렇게 초기화가 반드시 필요하다! -> NPE 방지
     

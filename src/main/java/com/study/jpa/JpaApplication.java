@@ -12,3 +12,5 @@ public class JpaApplication {
 	}
 		// 톰캣을 돌리고 싶으면 이 main메서드를 돌려야함
 }
+
+

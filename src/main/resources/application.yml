@@ -20,3 +20,8 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+
+# swagger setting
+springdoc:
+  swagger-ui:
+    path: /myapi.html # 내 마음대로 적은 제목(myapi)
